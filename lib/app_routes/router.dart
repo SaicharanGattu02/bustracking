@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../Presentation/missed_stop_confirmation.dart';
+import '../Presentation/report_an_issue.dart';
 import '../Presentation/report_received.dart';
 import '../Presentation/trip_history.dart';
 import '../Presentation/trip_summary.dart';
@@ -41,6 +42,12 @@ final GoRouter appRouter = GoRouter(
       path: '/report_submit',
       pageBuilder: (context, state) {
         return buildSlideTransitionPage(ReportSubmit(), state);
+      },
+    ),
+    GoRoute(
+      path: '/report_an_issue',
+      pageBuilder: (context, state) {
+        return buildSlideTransitionPage(ReportAnIssueScreen(), state);
       },
     ),
 

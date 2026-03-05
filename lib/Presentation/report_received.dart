@@ -1,4 +1,9 @@
+import 'package:bustracking/Components/CustomAppButton.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
+
+import '../utils/constants.dart';
 
 class ReportSubmit extends StatefulWidget {
   const ReportSubmit({super.key});
@@ -19,136 +24,52 @@ class _ReportSubmitState extends State<ReportSubmit> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               const Spacer(flex: 2),
-              SizedBox(
-                width: 160,
-                height: 160,
-                child: Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    // Soft light grey background blob
-                    Container(
-                      width: 150,
-                      height: 150,
-                      decoration: BoxDecoration(
-                        color: const Color(0xFFF0F1F5),
-                        borderRadius: BorderRadius.circular(40),
-                      ),
-                    ),
-                    // Document icon
-                    Positioned(
-                      top: 22,
-                      child: Container(
-                        width: 90,
-                        height: 108,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(12),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withOpacity(0.08),
-                              blurRadius: 16,
-                              offset: const Offset(0, 4),
-                            ),
-                          ],
-                        ),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            // Document lines
-                            Container(
-                              width: 52,
-                              height: 6,
-                              decoration: BoxDecoration(
-                                color: const Color(0xFFE5E7EB),
-                                borderRadius: BorderRadius.circular(4),
-                              ),
-                            ),
-                            const SizedBox(height: 8),
-                            Container(
-                              width: 52,
-                              height: 6,
-                              decoration: BoxDecoration(
-                                color: const Color(0xFFE5E7EB),
-                                borderRadius: BorderRadius.circular(4),
-                              ),
-                            ),
-                            const SizedBox(height: 8),
-                            Container(
-                              width: 36,
-                              height: 6,
-                              decoration: BoxDecoration(
-                                color: const Color(0xFFEEEFF2),
-                                borderRadius: BorderRadius.circular(4),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    // Green check badge
-                    Positioned(
-                      bottom: 10,
-                      right: 14,
-                      child: Container(
-                        width: 36,
-                        height: 36,
-                        decoration: const BoxDecoration(
-                          color: Color(0xFF4CAF50),
-                          shape: BoxShape.circle,
-                        ),
-                        child: const Icon(
-                          Icons.check_rounded,
-                          color: Colors.white,
-                          size: 22,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
+              SvgPicture.asset(
+                "assets/svg/reportbg.svg",
+                width: 190,
+                height: 190,
               ),
 
               const SizedBox(height: 32),
 
-              // ── Title ─────────────────────────────────────────────────
-              const Text(
+              Text(
                 "We've Received Your Report",
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.w800,
-                  color: Color(0xFF1A1A2E),
-                  height: 1.3,
+                  fontSize: 24,
+                  fontFamily: figtree,
+                  fontWeight: FontWeight.w700,
+                  color: Color(0xFF000000),
                 ),
               ),
 
-              const SizedBox(height: 14),
-
-              // ── Subtitle ──────────────────────────────────────────────
-              const Text(
+              const SizedBox(height: 12),
+              Text(
                 'Thank you for notifying us. The\ntransport administration team has\nbeen alerted.',
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  fontSize: 13.5,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
                   color: Color(0xFF6B7280),
-                  height: 1.65,
+                  fontFamily: figtree,
                 ),
               ),
 
               const SizedBox(height: 32),
 
-              // ── Category chip ─────────────────────────────────────────
               Container(
                 width: double.infinity,
-                padding:
-                const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 14,
+                ),
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: Color(0xffF8FAFC),
                   borderRadius: BorderRadius.circular(14),
-                  border: Border.all(color: const Color(0xFFE5E7EB), width: 1),
+                  border: Border.all(color: Color(0xFFF3F4F6), width: 1),
                 ),
                 child: Row(
                   children: [
-                    // Icon stack: red + bus icon
                     Stack(
                       clipBehavior: Clip.none,
                       children: [
@@ -157,7 +78,8 @@ class _ReportSubmitState extends State<ReportSubmit> {
                           height: 38,
                           decoration: BoxDecoration(
                             color: const Color(0xFFFFEBEB),
-                            borderRadius: BorderRadius.circular(10),
+                            shape: BoxShape.circle,
+
                           ),
                           child: const Icon(
                             Icons.directions_bus_rounded,
@@ -192,67 +114,39 @@ class _ReportSubmitState extends State<ReportSubmit> {
                         Text(
                           'CATEGORY',
                           style: TextStyle(
-                            fontSize: 10,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.grey.shade400,
-                            letterSpacing: 0.8,
+                            fontSize: 12,
+                            fontFamily: figtree,
+                            fontWeight: FontWeight.w700,
+                            color: Color(0xff9CA3AF),
                           ),
                         ),
                         const SizedBox(height: 2),
-                        const Text(
+                        Text(
                           'Breakdown reported',
                           style: TextStyle(
-                            fontSize: 13.5,
+                            fontSize: 14,
+                            fontFamily: figtree,
                             fontWeight: FontWeight.w700,
-                            color: Color(0xFF1A1A2E),
+                            color: Color(0xFF111827),
                           ),
                         ),
                       ],
                     ),
                     const Spacer(),
-                    // Green check on right
-                    Container(
-                      width: 28,
-                      height: 28,
-                      decoration: BoxDecoration(
-                        color: const Color(0xFFE8F5E9),
-                        shape: BoxShape.circle,
-                      ),
-                      child: const Icon(
-                        Icons.check_rounded,
-                        color: Color(0xFF4CAF50),
-                        size: 16,
-                      ),
+                    SvgPicture.asset(
+                      "assets/svg/check.svg",
+                      width: 20,
+                      height: 20,
                     ),
                   ],
                 ),
               ),
-
               const Spacer(flex: 3),
-
-              // ── View Summary button ───────────────────────────────────
-              SizedBox(
-                width: double.infinity,
-                height: 54,
-                child: ElevatedButton(
-                  onPressed: () {},
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFFE53935),
-                    foregroundColor: Colors.white,
-                    elevation: 0,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(14),
-                    ),
-                  ),
-                  child: const Text(
-                    'View Summary',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w700,
-                      letterSpacing: 0.3,
-                    ),
-                  ),
-                ),
+              CustomAppButton(
+                text: 'View Summary',
+                onPlusTap: () {
+                  context.push('/trip_history');
+                },
               ),
 
               const SizedBox(height: 30),

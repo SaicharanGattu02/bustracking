@@ -263,7 +263,7 @@ class _MissedStopConfirmationState extends State<MissedStopConfirmation> {
                       alignment: Alignment.centerRight,
                       child: TextButton(
                         onPressed: () {
-                          context.push('/report_submit');
+                          context.push('/report_an_issue');
                         },
                         child: Text(
                           'Report as issue',
@@ -285,38 +285,47 @@ class _MissedStopConfirmationState extends State<MissedStopConfirmation> {
                       'ADDITIONAL NOTES',
                       style: TextStyle(
                         fontFamily: figtree,
-                        fontSize: 11,
+                        fontSize: 14,
                         fontWeight: FontWeight.w700,
-                        color: const Color(0xFF1A1A2E),
-                        letterSpacing: 1.0,
+                        color: const Color(0xFF000000),
                       ),
                     ),
 
-                    const SizedBox(height: 10),
+                    const SizedBox(height: 8),
 
                     Container(
+                      height: 96,
                       decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(12),
-                        border: Border.all(color: const Color(0xFFE5E7EB)),
+                        color: const Color(0xFFF9FAFB),
+                        borderRadius: BorderRadius.circular(16),
+                        border: Border.all(
+                          color: const Color(0xFFE5E7EB),
+                          width: 1,
+                        ),
                       ),
                       child: TextField(
                         controller: notesController,
-                        maxLines: 5,
+                        maxLines: null,
+                        expands: true,
                         style: TextStyle(
                           fontFamily: figtree,
-                          fontSize: 13,
-                          color: const Color(0xFF1A1A2E),
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                          color: const Color(0xFF111827),
                         ),
                         decoration: InputDecoration(
-                          hintText: 'Add any additional notes...',
+                          hintText: "Add any additional notes...",
                           hintStyle: TextStyle(
                             fontFamily: figtree,
-                            fontSize: 13,
-                            color: Colors.grey.shade400,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w400,
+                            color: const Color(0xFF9CA3AF),
                           ),
-                          contentPadding: const EdgeInsets.all(14),
                           border: InputBorder.none,
+                          contentPadding: const EdgeInsets.symmetric(
+                            horizontal: 16,
+                            vertical: 16,
+                          ),
                         ),
                       ),
                     ),
@@ -336,17 +345,24 @@ class _MissedStopConfirmationState extends State<MissedStopConfirmation> {
             spacing: 10,
             mainAxisSize: MainAxisSize.min,
             children: [
-              CustomAppButton(
-                text: "Next",
-                onPlusTap: () {
-                  final int currentPage = pageController.page?.round() ?? 0;
+              ValueListenableBuilder(
+                valueListenable: currentStop,
+                builder: (context, value, _) {
+                  final bool isLast = value == stops.length - 1;
 
-                  if (currentPage < stops.length - 1) {
-                    pageController.nextPage(
-                      duration: const Duration(milliseconds: 300),
-                      curve: Curves.ease,
-                    );
-                  }
+                  return CustomAppButton(
+                    text: isLast ? "Submit" : "Next",
+                    onPlusTap: () {
+                      if (!isLast) {
+                        pageController.nextPage(
+                          duration: const Duration(milliseconds: 300),
+                          curve: Curves.ease,
+                        );
+                      } else {
+                        print("Submit pressed");
+                      }
+                    },
+                  );
                 },
               ),
               Center(

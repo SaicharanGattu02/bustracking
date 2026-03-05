@@ -1,3 +1,4 @@
+import 'package:bustracking/Components/CustomAppBar.dart';
 import 'package:bustracking/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -70,23 +71,7 @@ class TripHistory extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xffF8FAFC),
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.white,
-        centerTitle: true,
-        title: const Text(
-          "Trip History",
-          style: TextStyle(
-            fontWeight: FontWeight.w600,
-            color: Color(0xff111827),
-          ),
-        ),
-        leading: const Icon(Icons.arrow_back, color: Color(0xff111827)),
-        actions: const [
-          Icon(Icons.filter_list, color: Color(0xff111827)),
-          SizedBox(width: 16),
-        ],
-      ),
+      appBar: CustomAppBar(title:  "Trip History", actions: []),
 
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 24),
