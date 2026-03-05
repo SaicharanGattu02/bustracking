@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import '../Presentation/missed_stop_confirmation.dart';
 import '../Presentation/report_received.dart';
 import '../Presentation/trip_history.dart';
 import '../Presentation/trip_summary.dart';
@@ -24,9 +25,16 @@ final GoRouter appRouter = GoRouter(
       },
     ),
     GoRoute(
+      path: '/missed_trips',
+      pageBuilder: (context, state) {
+        return buildSlideTransitionPage(MissedStopConfirmation(), state);
+      },
+    ),
+    GoRoute(
       path: '/trip_summary',
       pageBuilder: (context, state) {
-        return buildSlideTransitionPage(TripSummary(), state);
+        final tripId=state.uri.queryParameters['tripId']??"";
+        return buildSlideTransitionPage(TripSummary(tripId: tripId,), state);
       },
     ),
     GoRoute(

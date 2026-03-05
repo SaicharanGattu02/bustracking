@@ -1,4 +1,6 @@
+import 'package:bustracking/utils/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class TripData {
   final String title;
@@ -18,10 +20,10 @@ class TripData {
   });
 }
 
-class TripHistory extends StatefulWidget {
+class TripHistory extends StatelessWidget {
   const TripHistory({super.key});
 
-  static const List<TripData> _trips = [
+  static const List<TripData> trips = [
     TripData(
       title: 'Home to School',
       date: 'Yesterday, Oct 23',
@@ -54,373 +56,344 @@ class TripHistory extends StatefulWidget {
       duration: '45 min',
       isHomeToSchool: false,
     ),
+    TripData(
+      title: 'Home to School',
+      date: 'Monday, Oct 21',
+      departure: '07:50\nAM',
+      arrival: '08:35\nAM',
+      duration: '45 min',
+      isHomeToSchool: true,
+    ),
   ];
 
   @override
-  State<TripHistory> createState() => _TripHistoryState();
-}
-
-class _TripHistoryState extends State<TripHistory> {
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF5F6FA),
-      body: SafeArea(
+      backgroundColor: const Color(0xffF8FAFC),
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: Colors.white,
+        centerTitle: true,
+        title: const Text(
+          "Trip History",
+          style: TextStyle(
+            fontWeight: FontWeight.w600,
+            color: Color(0xff111827),
+          ),
+        ),
+        leading: const Icon(Icons.arrow_back, color: Color(0xff111827)),
+        actions: const [
+          Icon(Icons.filter_list, color: Color(0xff111827)),
+          SizedBox(width: 16),
+        ],
+      ),
+
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 24),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // ── AppBar ────────────────────────────────────────────────────
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-              child: Row(
-                children: [
-                  InkWell(
-                    onTap: () => Navigator.maybePop(context),
-                    borderRadius: BorderRadius.circular(8),
-                    child: const Padding(
-                      padding: EdgeInsets.all(4),
-                      child: Icon(Icons.arrow_back, size: 22, color: Color(0xFF1A1A2E)),
-                    ),
-                  ),
-                  const Expanded(
-                    child: Text(
-                      'Trip History',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 17,
-                        fontWeight: FontWeight.w700,
-                        color: Color(0xFF1A1A2E),
-                      ),
-                    ),
-                  ),
-                  InkWell(
-                    onTap: () {},
-                    borderRadius: BorderRadius.circular(8),
-                    child: const Padding(
-                      padding: EdgeInsets.all(4),
-                      child: Icon(Icons.tune_rounded, size: 22, color: Color(0xFF1A1A2E)),
-                    ),
-                  ),
-                ],
+            Text(
+              "Your Trips",
+              style: TextStyle(
+                fontSize: 20,
+                fontFamily: figtree,
+                fontWeight: FontWeight.w700,
+                color: Color(0xff111827),
               ),
             ),
-
-            // ── Scrollable Body ───────────────────────────────────────────
-            Expanded(
-              child: SingleChildScrollView(
-                padding: const EdgeInsets.symmetric(horizontal: 18),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const SizedBox(height: 8),
-
-                    // ── Your Trips heading ────────────────────────────────
-                    const Text(
-                      'Your Trips',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w700,
-                        color: Color(0xFF1A1A2E),
-                      ),
+            Row(
+              spacing: 16,
+              children: [
+                Expanded(
+                  child: Container(
+                    padding: const EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      color: const Color(0x01FFFFFF), // #FFFFFF01
+                      borderRadius: BorderRadius.circular(16),
+                      border: Border.all(color: const Color(0xffE2E8F0)),
                     ),
 
-                    const SizedBox(height: 14),
-
-                    // ── Stats Row ─────────────────────────────────────────
-                    Row(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Expanded(
-                          child: Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 16),
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(14),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black.withOpacity(0.04),
-                                  blurRadius: 8,
-                                  offset: const Offset(0, 2),
-                                ),
-                              ],
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'TOTAL TRIPS',
-                                  style: TextStyle(
-                                    fontSize: 10,
-                                    fontWeight: FontWeight.w600,
-                                    color: Colors.grey.shade500,
-                                    letterSpacing: 0.8,
-                                  ),
-                                ),
-                                const SizedBox(height: 4),
-                                const Text(
-                                  '42',
-                                  style: TextStyle(
-                                    fontSize: 30,
-                                    fontWeight: FontWeight.w800,
-                                    color: Color(0xFF1A1A2E),
-                                    height: 1.1,
-                                  ),
-                                ),
-                                const SizedBox(height: 4),
-                                const Text(
-                                  '+4 this week',
-                                  style: TextStyle(
-                                    fontSize: 11,
-                                    fontWeight: FontWeight.w500,
-                                    color: Color(0xFF4CAF50),
-                                  ),
-                                ),
-                              ],
-                            ),
+                        Text(
+                          "TOTAL TRIPS",
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontFamily: figtree,
+                            fontWeight: FontWeight.w600,
+                            color: Color(0xff6B7280),
                           ),
                         ),
-                        const SizedBox(width: 12),
-                        Expanded(
-                          child: Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 16),
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(14),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black.withOpacity(0.04),
-                                  blurRadius: 8,
-                                  offset: const Offset(0, 2),
-                                ),
-                              ],
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'TOTAL DRIVING',
-                                  style: TextStyle(
-                                    fontSize: 10,
-                                    fontWeight: FontWeight.w600,
-                                    color: Colors.grey.shade500,
-                                    letterSpacing: 0.8,
-                                  ),
-                                ),
-                                const SizedBox(height: 4),
-                                const Text(
-                                  '72h',
-                                  style: TextStyle(
-                                    fontSize: 30,
-                                    fontWeight: FontWeight.w800,
-                                    color: Color(0xFF1A1A2E),
-                                    height: 1.1,
-                                  ),
-                                ),
-                                const SizedBox(height: 4),
-                                const Text(
-                                  '13h this week',
-                                  style: TextStyle(
-                                    fontSize: 11,
-                                    fontWeight: FontWeight.w500,
-                                    color: Color(0xFF4CAF50),
-                                  ),
-                                ),
-                              ],
-                            ),
+                        const SizedBox(height: 4),
+                        Text(
+                          "42",
+                          style: TextStyle(
+                            fontSize: 30,
+                            fontFamily: figtree,
+                            fontWeight: FontWeight.w700,
+                            color: Color(0xff111827),
+                          ),
+                        ),
+                        const SizedBox(height: 4),
+                        Text(
+                          "+4 this week",
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontFamily: figtree,
+                            fontWeight: FontWeight.w500,
+                            color: Color(0xff22C55E),
                           ),
                         ),
                       ],
                     ),
-
-                    const SizedBox(height: 28),
-
-                    // ── Last 5 Trips heading ──────────────────────────────
-                    const Text(
-                      'Last 5 Trips',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w700,
-                        color: Color(0xFF1A1A2E),
-                      ),
+                  ),
+                ),
+                Expanded(
+                  child: Container(
+                    padding: const EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      color: const Color(0x01FFFFFF), // #FFFFFF01
+                      borderRadius: BorderRadius.circular(16),
+                      border: Border.all(color: const Color(0xffE2E8F0)),
                     ),
 
-                    const SizedBox(height: 14),
-
-                    // ── Trip Cards ────────────────────────────────────────
-                    ...TripHistory._trips.map((trip) => Padding(
-                      padding: const EdgeInsets.only(bottom: 12),
-                      child: _buildTripCard(trip),
-                    )),
-
-                    const SizedBox(height: 24),
-                  ],
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "TOTAL DRIVING",
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontFamily: figtree,
+                            fontWeight: FontWeight.w600,
+                            color: Color(0xff6B7280),
+                          ),
+                        ),
+                        const SizedBox(height: 4),
+                        Text(
+                          "72h",
+                          style: TextStyle(
+                            fontSize: 30,
+                            fontFamily: figtree,
+                            fontWeight: FontWeight.w700,
+                            color: Color(0xff111827),
+                          ),
+                        ),
+                        const SizedBox(height: 4),
+                        Text(
+                          "13h this week",
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontFamily: figtree,
+                            fontWeight: FontWeight.w500,
+                            color: Color(0xff22C55E),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
+              ],
+            ),
+            SizedBox(height: 18),
+            Text(
+              "Last 5 Trips",
+              style: TextStyle(
+                fontSize: 20,
+                fontFamily: figtree,
+                fontWeight: FontWeight.w700,
+                color: Color(0xff111827),
+              ),
+            ),
+            SizedBox(height: 18),
+            Expanded(
+              child: CustomScrollView(
+                slivers: [
+                  SliverList(
+                    delegate: SliverChildBuilderDelegate((context, index) {
+                      final trip = trips[index];
+
+                      return Padding(
+                        padding: const EdgeInsets.only(bottom: 14),
+                        child: GestureDetector(
+                          onTap: () {
+                            context.push('/trip_summary?tripId=${2}');
+                          },
+                          child: Container(
+                            padding: const EdgeInsets.all(16),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(16),
+                              border: Border.all(
+                                color: const Color(0xffF3F4F6),
+                              ),
+                            ),
+                            child: Column(
+                              children: [
+                                Row(
+                                  children: [
+                                    Container(
+                                      width: 36,
+                                      height: 36,
+                                      decoration: BoxDecoration(
+                                        color: const Color(0xffF3F4F6),
+                                        borderRadius: BorderRadius.circular(
+                                          1000,
+                                        ),
+                                      ),
+                                      child: const Icon(
+                                        Icons.school,
+                                        size: 18,
+                                        color: Color(0xff475569),
+                                      ),
+                                    ),
+
+                                    const SizedBox(width: 10),
+
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          trip.title,
+                                          style: TextStyle(
+                                            fontFamily: figtree,
+                                            fontWeight: FontWeight.w700,
+                                            fontSize: 16,
+                                            color: Color(0xff111827),
+                                          ),
+                                        ),
+                                        Text(
+                                          trip.date,
+                                          style: TextStyle(
+                                            fontSize: 12,
+                                            fontFamily: figtree,
+                                            fontWeight: FontWeight.w400,
+                                            color: Color(0xff6B7280),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+
+                                const SizedBox(height: 16),
+
+                                Container(
+                                  padding: EdgeInsets.all(12),
+                                  decoration: BoxDecoration(
+                                    color: Color(0xffF9FAFB),
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                  child: Row(
+                                    children: [
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            "Departure",
+                                            style: TextStyle(
+                                              fontSize: 10,
+                                              fontFamily: figtree,
+                                              fontWeight: FontWeight.w400,
+                                              color: Color(0xff6B7280),
+                                            ),
+                                          ),
+                                          const SizedBox(height: 4),
+                                          Text(
+                                            trip.departure,
+                                            style: TextStyle(
+                                              fontSize: 14,
+                                              color: Color(0xff111827),
+                                              fontFamily: figtree,
+                                              fontWeight: FontWeight.w700,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      Expanded(
+                                        child: Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                            horizontal: 12,
+                                          ),
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              Stack(
+                                                alignment: Alignment.center,
+                                                children: [
+                                                  // Icon(
+                                                  //   Icons.arrow_forward,
+                                                  //   size: 14,
+                                                  //   color: Color(0xff94A3B8),
+                                                  // ),
+                                                  // SizedBox(height: 20,),
+                                                  Container(
+                                                    height: 1,
+                                                    color: const Color(
+                                                      0xffE2E8F0,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+
+                                              const SizedBox(height: 4),
+
+                                              Text(
+                                                trip.duration,
+                                                style: const TextStyle(
+                                                  fontSize: 10,
+                                                  color: Color(0xff64748B),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.end,
+                                        children: [
+                                          Text(
+                                            "Arrival",
+                                            style: TextStyle(
+                                              fontSize: 10,
+                                              fontFamily: figtree,
+                                              fontWeight: FontWeight.w400,
+                                              color: Color(0xff6B7280),
+                                            ),
+                                          ),
+                                          const SizedBox(height: 4),
+                                          Text(
+                                            trip.arrival,
+                                            textAlign: TextAlign.end,
+                                            style: TextStyle(
+                                              fontSize: 14,
+                                              color: Color(0xff111827),
+                                              fontFamily: figtree,
+                                              fontWeight: FontWeight.w700,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      );
+                    }, childCount: trips.length),
+                  ),
+                ],
               ),
             ),
           ],
         ),
-      ),
-    );
-  }
-
-  // ── Trip Card ─────────────────────────────────────────────────────────────
-  Widget _buildTripCard(TripData trip) {
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.fromLTRB(16, 16, 16, 16),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.04),
-            blurRadius: 8,
-            offset: const Offset(0, 2),
-          ),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // Title row with icon
-          Row(
-            children: [
-              Container(
-                width: 36,
-                height: 36,
-                decoration: BoxDecoration(
-                  color: const Color(0xFFF0F4FF),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Icon(
-                  trip.isHomeToSchool ? Icons.school_rounded : Icons.home_rounded,
-                  size: 18,
-                  color: const Color(0xFF3949AB),
-                ),
-              ),
-              const SizedBox(width: 10),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    trip.title,
-                    style: const TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w700,
-                      color: Color(0xFF1A1A2E),
-                    ),
-                  ),
-                  Text(
-                    trip.date,
-                    style: TextStyle(
-                      fontSize: 11,
-                      color: Colors.grey.shade500,
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-
-          const SizedBox(height: 16),
-
-          // Departure → duration → Arrival row
-          Row(
-            children: [
-              // Departure
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Departure',
-                    style: TextStyle(
-                      fontSize: 10,
-                      color: Colors.grey.shade500,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
-                    trip.departure,
-                    style: const TextStyle(
-                      fontSize: 15,
-                      fontWeight: FontWeight.w700,
-                      color: Color(0xFF1A1A2E),
-                      height: 1.25,
-                    ),
-                  ),
-                ],
-              ),
-
-              // Arrow + Duration
-              Expanded(
-                child: Column(
-                  children: [
-                    const SizedBox(height: 14),
-                    Stack(
-                      alignment: Alignment.center,
-                      children: [
-                        Container(
-                          height: 1,
-                          color: Colors.grey.shade300,
-                          margin: const EdgeInsets.symmetric(horizontal: 8),
-                        ),
-                        Container(
-                          color: Colors.white,
-                          padding: const EdgeInsets.symmetric(horizontal: 6),
-                          child: Text(
-                            trip.duration,
-                            style: TextStyle(
-                              fontSize: 10,
-                              color: Colors.grey.shade500,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 2),
-                    Align(
-                      alignment: Alignment.centerRight,
-                      child: Padding(
-                        padding: const EdgeInsets.only(right: 8),
-                        child: Icon(
-                          Icons.arrow_forward,
-                          size: 14,
-                          color: Colors.grey.shade400,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-
-              // Arrival
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Text(
-                    'Arrival',
-                    style: TextStyle(
-                      fontSize: 10,
-                      color: Colors.grey.shade500,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
-                    trip.arrival,
-                    textAlign: TextAlign.end,
-                    style: const TextStyle(
-                      fontSize: 15,
-                      fontWeight: FontWeight.w700,
-                      color: Color(0xFF1A1A2E),
-                      height: 1.25,
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ],
       ),
     );
   }

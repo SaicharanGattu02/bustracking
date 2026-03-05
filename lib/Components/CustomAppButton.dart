@@ -34,59 +34,61 @@ class CustomAppButton extends StatelessWidget {
     this.gradientColors,
     this.shadowColor,
   }) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     final double buttonWidth = width ?? MediaQuery.of(context).size.width;
-    final double buttonHeight = height ?? 54;
-    final int borderRadius = radius ?? 14;
+    final double buttonHeight = height ?? 56;
+    final int borderRadius = radius ?? 16;
     final Color textColor = textcolor ?? Colors.white;
+
     return SizedBox(
       width: buttonWidth,
       height: buttonHeight,
-      child: ElevatedButton(
-        onPressed: isLoading ? null : onPlusTap,
-        style: ElevatedButton.styleFrom(
-          visualDensity: VisualDensity.compact,
-          overlayColor: Colors.white10,
-          padding: EdgeInsets.zero,
-          backgroundColor: Colors.transparent,
-          disabledBackgroundColor: Colors.transparent,
-          shadowColor: Colors.transparent,
-          elevation: 0,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(borderRadius.toDouble()),
-          ),
+      child: Container(
+        decoration: BoxDecoration(
+          color: const Color(0xFFEF1111), // red background
+          borderRadius: BorderRadius.circular(borderRadius.toDouble()),
         ),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            if (isLoading)
-              const SizedBox(
-                height: 22,
-                width: 22,
-                child: CircularProgressIndicator(
-                  color: Colors.white,
-                  strokeWidth: 2,
-                ),
-              )
-            else
-              Text(
-                text,
-                style: TextStyle(
-                  color: textColor,
-                  fontFamily: figtree,
-                  fontSize: textSize ?? 16,
-                  fontWeight: FontWeight.w600,
-                  letterSpacing: 0.3,
-                ),
-              ),
-            if (!isLoading && icon != null) ...[
-              const SizedBox(width: 8),
-              Icon(icon, color: textColor, size: 18),
-            ],
-          ],
+        child: ElevatedButton(
+          onPressed: isLoading ? null : onPlusTap,
+          style: ElevatedButton.styleFrom(
+            padding: EdgeInsets.zero,
+            backgroundColor: Colors.transparent,
+            shadowColor: Colors.transparent,
+            elevation: 0,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(borderRadius.toDouble()),
+            ),
+          ),
+          child: Center(
+            child: isLoading
+                ? const SizedBox(
+                    height: 22,
+                    width: 22,
+                    child: CircularProgressIndicator(
+                      color: Colors.white,
+                      strokeWidth: 2,
+                    ),
+                  )
+                : Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        text,
+                        style: TextStyle(
+                          color: textColor,
+                          fontFamily: figtree,
+                          fontSize: textSize ?? 16,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      if (icon != null) ...[
+                        const SizedBox(width: 8),
+                        Icon(icon, color: textColor, size: 18),
+                      ],
+                    ],
+                  ),
+          ),
         ),
       ),
     );

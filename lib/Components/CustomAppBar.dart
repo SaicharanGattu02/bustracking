@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../utils/color_constants.dart';
+import '../utils/constants.dart';
 
-class CustomAppBar1 extends StatelessWidget implements PreferredSizeWidget {
+class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   final Color? color;
   final List<Widget> actions;
 
-  const CustomAppBar1({
+  const CustomAppBar({
     Key? key,
     required this.title,
     required this.actions,
@@ -25,14 +26,14 @@ class CustomAppBar1 extends StatelessWidget implements PreferredSizeWidget {
         onPressed: () {
           context.pop(true);
         },
-        icon: const Icon(Icons.arrow_back, size: 24, color: Colors.black),
+        icon: const Icon(Icons.arrow_back, size: 24, color: Color(0xff0F172A)),
       ),
       title: Text(
         title,
-        style: const TextStyle(
-          color: Colors.black,
-          fontSize: 20,
-          fontWeight: FontWeight.w600,
+        style:  TextStyle(
+          color: Color(0xff111827),
+          fontSize: 18,fontFamily: figtree,
+          fontWeight: FontWeight.w700,
         ),
       ),
       actions: actions,
