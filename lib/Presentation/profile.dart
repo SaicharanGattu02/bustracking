@@ -14,17 +14,54 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  // ── Menu items data ────────────────────────────────────────────────────────
+  static const List<Map<String, dynamic>> _menuItems = [
+    {
+      'title': 'Trip History',
+      'subtitle': 'View past trips & stats',
+      'svg': 'assets/svg/trip_history.svg',
+      'iconColor': Color(0xFF135BEC),
+      'bgColor': Color(0xffEFF6FF),
+      'route': '/trip_history',
+    },
+    {
+      'title': 'Notifications & Alerts',
+      'subtitle': 'Manage app alerts',
+      'svg': 'assets/svg/notification.svg',
+      'iconColor': Color(0xFFF97316),
+      'bgColor': Color(0xffFFF7ED),
+      'route': null,
+    },
+    {
+      'title': 'Contact Transport Manager',
+      'subtitle': 'Call Support',
+      'svg': 'assets/svg/contact_support.svg',
+      'iconColor': Color(0xFF16A34A),
+      'bgColor': Color(0xffF0FDF4),
+      'route': null,
+    },
+    {
+      'title': 'Privacy Policy & Terms',
+      'subtitle': 'Legal information',
+      'svg': 'assets/svg/privacy_policy.svg',
+      'iconColor': Color(0xFF64748B),
+      'bgColor': Color(0xffF8FAFC),
+      'route': null,
+    },
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(0xFFF8FAFC),
       body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Container(
-                padding: EdgeInsets.symmetric(vertical: 20),
-                decoration: BoxDecoration(
+        child: CustomScrollView(
+          physics: const BouncingScrollPhysics(),
+          slivers: [
+            SliverToBoxAdapter(
+              child: Container(
+                padding: const EdgeInsets.symmetric(vertical: 20),
+                decoration: const BoxDecoration(
                   color: Color(0xffFFFFFF),
                   borderRadius: BorderRadius.only(
                     bottomLeft: Radius.circular(24),
@@ -32,14 +69,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                   boxShadow: [
                     BoxShadow(
-                      color: Color(0x0D000000), // equivalent to #0000000D
+                      color: Color(0x0D000000),
                       offset: Offset(0, 1),
                       blurRadius: 2,
                       spreadRadius: 0,
                     ),
                   ],
                 ),
-
                 child: Column(
                   children: [
                     Center(
@@ -50,19 +86,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             height: 88,
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
-                              border: Border.all(color: Colors.white, width: 3),
+                              border:
+                              Border.all(color: Colors.white, width: 3),
                             ),
                             child: ClipOval(
                               child: CachedNetworkImage(
                                 imageUrl:
-                                    'https://randomuser.me/api/portraits/men/32.jpg',
+                                'https://randomuser.me/api/portraits/men/32.jpg',
                                 fit: BoxFit.cover,
-
                                 placeholder: (context, url) =>
                                     shimmerCircle(88, context),
-
                                 errorWidget: (context, url, error) =>
-                                    const Icon(Icons.person, size: 40),
+                                const Icon(Icons.person, size: 40),
                               ),
                             ),
                           ),
@@ -75,24 +110,24 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               decoration: BoxDecoration(
                                 color: const Color(0xFF4CAF50),
                                 shape: BoxShape.circle,
-                                border: Border.all(
-                                  color: Colors.white,
-                                  width: 2,
-                                ),
+                                border:
+                                Border.all(color: Colors.white, width: 2),
                               ),
                             ),
                           ),
                         ],
                       ),
                     ),
+
                     const SizedBox(height: 16),
+
                     Text(
                       'Srinivas K',
                       style: TextStyle(
                         fontSize: 24,
                         fontFamily: figtree,
                         fontWeight: FontWeight.w700,
-                        color: Color(0xFF0F172A),
+                        color: const Color(0xFF0F172A),
                       ),
                     ),
 
@@ -103,7 +138,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         fontSize: 14,
                         fontFamily: figtree,
                         fontWeight: FontWeight.w500,
-                        color: Color(0xFF135BEC),
+                        color: const Color(0xFF135BEC),
                       ),
                     ),
 
@@ -111,11 +146,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
                     Container(
                       padding: const EdgeInsets.symmetric(
-                        horizontal: 12,
-                        vertical: 4,
-                      ),
+                          horizontal: 12, vertical: 4),
                       decoration: BoxDecoration(
-                        color: Color(0xFFF1F5F9),
+                        color: const Color(0xFFF1F5F9),
                         borderRadius: BorderRadius.circular(9999),
                       ),
                       child: Text(
@@ -124,19 +157,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           fontSize: 12,
                           fontFamily: figtree,
                           fontWeight: FontWeight.w600,
-                          color: Color(0xFF475569),
+                          color: const Color(0xFF475569),
                         ),
                       ),
                     ),
                   ],
                 ),
               ),
+            ),
 
-              Container(
-                margin: const EdgeInsets.symmetric(
-                  horizontal: 16,
-                  vertical: 24,
-                ),
+            SliverToBoxAdapter(
+              child: Container(
+                margin: const EdgeInsets.fromLTRB(16, 24, 16, 0),
                 decoration: BoxDecoration(
                   color: const Color(0xffFFFFFF),
                   borderRadius: BorderRadius.circular(16),
@@ -146,14 +178,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   children: [
                     Padding(
                       padding: const EdgeInsets.symmetric(
-                        horizontal: 20,
-                        vertical: 18,
-                      ),
+                          horizontal: 20, vertical: 18),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            "Account Details",
+                            'Account Details',
                             style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w600,
@@ -162,7 +192,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             ),
                           ),
                           SvgPicture.asset(
-                            "assets/svg/account_details.svg",
+                            'assets/svg/account_details.svg',
                             width: 20,
                             height: 20,
                             colorFilter: const ColorFilter.mode(
@@ -178,14 +208,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
                     Padding(
                       padding: const EdgeInsets.symmetric(
-                        horizontal: 20,
-                        vertical: 16,
-                      ),
+                          horizontal: 20, vertical: 16),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            "FULL NAME",
+                            'FULL NAME',
                             style: TextStyle(
                               fontSize: 12,
                               fontWeight: FontWeight.w500,
@@ -195,7 +223,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             ),
                           ),
                           Text(
-                            "Srinivas K",
+                            'Srinivas K',
                             style: TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.w500,
@@ -211,14 +239,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
                     Padding(
                       padding: const EdgeInsets.symmetric(
-                        horizontal: 20,
-                        vertical: 16,
-                      ),
+                          horizontal: 20, vertical: 16),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            "MOBILE",
+                            'MOBILE',
                             style: TextStyle(
                               fontSize: 12,
                               fontWeight: FontWeight.w500,
@@ -228,7 +254,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             ),
                           ),
                           Text(
-                            "+91 98765 43210",
+                            '+91 98765 43210',
                             style: TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.w500,
@@ -244,14 +270,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
                     Padding(
                       padding: const EdgeInsets.symmetric(
-                        horizontal: 20,
-                        vertical: 16,
-                      ),
+                          horizontal: 20, vertical: 16),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            "LICENSE NO",
+                            'LICENSE NO',
                             style: TextStyle(
                               fontSize: 12,
                               fontWeight: FontWeight.w500,
@@ -261,7 +285,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             ),
                           ),
                           Text(
-                            "KA01-2023DL",
+                            'KA01-2023DL',
                             style: TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.w500,
@@ -275,321 +299,104 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ],
                 ),
               ),
-              GestureDetector(
-                onTap: () {
-                  context.push('/trip_history');
+            ),
+
+            SliverPadding(
+              padding: const EdgeInsets.fromLTRB(16, 24, 16, 0),
+              sliver: SliverList.builder(
+                itemCount: _menuItems.length,
+                itemBuilder: (context, index) {
+                  final item = _menuItems[index];
+                  final String? route = item['route'] as String?;
+
+                  return GestureDetector(
+                    onTap: () {
+                      if (route != null) context.push(route);
+                    },
+                    child: Container(
+                      margin: const EdgeInsets.only(bottom: 12),
+                      padding: const EdgeInsets.all(16),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(12),
+                        border: Border.all(
+                            color: const Color(0xffF1F5F9), width: 1),
+                        boxShadow: const [
+                          BoxShadow(
+                            color: Color(0x0D000000),
+                            offset: Offset(0, 1),
+                            blurRadius: 2,
+                            spreadRadius: 0,
+                          ),
+                        ],
+                      ),
+                      child: Row(
+                        children: [
+                          // Icon container
+                          Container(
+                            width: 42,
+                            height: 42,
+                            decoration: BoxDecoration(
+                              color: item['bgColor'] as Color,
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            child: Center(
+                              child: SvgPicture.asset(
+                                item['svg'] as String,
+                                width: 18,
+                                height: 18,
+                                colorFilter: ColorFilter.mode(
+                                  item['iconColor'] as Color,
+                                  BlendMode.srcIn,
+                                ),
+                              ),
+                            ),
+                          ),
+
+                          const SizedBox(width: 16),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  item['title'] as String,
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    fontFamily: figtree,
+                                    fontWeight: FontWeight.w600,
+                                    color: const Color(0xFF0F172A),
+                                  ),
+                                ),
+                                const SizedBox(height: 4),
+                                Text(
+                                  item['subtitle'] as String,
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    fontFamily: figtree,
+                                    fontWeight: FontWeight.w400,
+                                    color: const Color(0xFF64748B),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+
+                          const Icon(
+                            Icons.chevron_right,
+                            color: Color(0xFFCBD5E1),
+                            size: 20,
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
                 },
-                child: Container(
-                  margin: const EdgeInsets.only(
-                    left: 16,
-                    right: 16,
-                    top: 24,
-                    bottom: 12,
-                  ),
-                  padding: const EdgeInsets.all(16),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border.all(
-                      color: const Color(0xffF1F5F9),
-                      width: 1,
-                    ),
-                    boxShadow: const [
-                      BoxShadow(
-                        color: Color(0x0D000000),
-                        offset: Offset(0, 1),
-                        blurRadius: 2,
-                        spreadRadius: 0,
-                      ),
-                    ],
-                  ),
-                  child: Row(
-                    children: [
-                      Container(
-                        width: 42,
-                        height: 42,
-                        decoration: BoxDecoration(
-                          color: const Color(0xffEFF6FF),
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        child: Center(
-                          child: SvgPicture.asset(
-                            "assets/svg/trip_history.svg",
-                            width: 18,
-                            height: 18,
-                            colorFilter: ColorFilter.mode(
-                              Color(0xFF135BEC),
-                              BlendMode.srcIn,
-                            ),
-                          ),
-                        ),
-                      ),
-
-                      SizedBox(width: 16),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "Trip History",
-                              style: TextStyle(
-                                fontSize: 14,
-                                fontFamily: figtree,
-                                fontWeight: FontWeight.w600,
-                                color: Color(0xFF0F172A),
-                              ),
-                            ),
-                            SizedBox(height: 4),
-                            Text(
-                              "View past trips & stats",
-                              style: TextStyle(
-                                fontSize: 14,
-                                fontFamily: figtree,
-                                fontWeight: FontWeight.w400,
-                                color: Color(0xFF64748B),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-
-                      const Icon(
-                        Icons.chevron_right,
-                        color: Color(0xFFCBD5E1),
-                        size: 20,
-                      ),
-                    ],
-                  ),
-                ),
               ),
-              Container(
-                margin: const EdgeInsets.only(left: 16, right: 16, bottom: 12),
-                padding: const EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border.all(color: const Color(0xffF1F5F9), width: 1),
-                  boxShadow: const [
-                    BoxShadow(
-                      color: Color(0x0D000000),
-                      offset: Offset(0, 1),
-                      blurRadius: 2,
-                      spreadRadius: 0,
-                    ),
-                  ],
-                ),
-                child: Row(
-                  children: [
-                    Container(
-                      width: 42,
-                      height: 42,
-                      decoration: BoxDecoration(
-                        color: const Color(0xffFFF7ED),
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: Center(
-                        child: SvgPicture.asset(
-                          "assets/svg/notification.svg",
-                          width: 18,
-                          height: 18,
-                          colorFilter: ColorFilter.mode(
-                            Color(0xFFF97316),
-                            BlendMode.srcIn,
-                          ),
-                        ),
-                      ),
-                    ),
+            ),
 
-                    SizedBox(width: 16),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "Notifications & Alerts",
-                            style: TextStyle(
-                              fontSize: 14,
-                              fontFamily: figtree,
-                              fontWeight: FontWeight.w600,
-                              color: Color(0xFF0F172A),
-                            ),
-                          ),
-                          SizedBox(height: 4),
-                          Text(
-                            "Manage app alerts",
-                            style: TextStyle(
-                              fontSize: 14,
-                              fontFamily: figtree,
-                              fontWeight: FontWeight.w400,
-                              color: Color(0xFF64748B),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-
-                    const Icon(
-                      Icons.chevron_right,
-                      color: Color(0xFFCBD5E1),
-                      size: 20,
-                    ),
-                  ],
-                ),
-              ),
-              Container(
-                margin: const EdgeInsets.only(left: 16, right: 16, bottom: 12),
-                padding: const EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border.all(color: const Color(0xffF1F5F9), width: 1),
-                  boxShadow: const [
-                    BoxShadow(
-                      color: Color(0x0D000000),
-                      offset: Offset(0, 1),
-                      blurRadius: 2,
-                      spreadRadius: 0,
-                    ),
-                  ],
-                ),
-                child: Row(
-                  children: [
-                    Container(
-                      width: 42,
-                      height: 42,
-                      decoration: BoxDecoration(
-                        color: const Color(0xffF0FDF4),
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: Center(
-                        child: SvgPicture.asset(
-                          "assets/svg/contact_support.svg",
-                          width: 18,
-                          height: 18,
-                          colorFilter: ColorFilter.mode(
-                            Color(0xFF16A34A),
-                            BlendMode.srcIn,
-                          ),
-                        ),
-                      ),
-                    ),
-
-                    SizedBox(width: 16),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "Contact Transport Manager",
-                            style: TextStyle(
-                              fontSize: 14,
-                              fontFamily: figtree,
-                              fontWeight: FontWeight.w600,
-                              color: Color(0xFF0F172A),
-                            ),
-                          ),
-                          SizedBox(height: 4),
-                          Text(
-                            "Call Support",
-                            style: TextStyle(
-                              fontSize: 14,
-                              fontFamily: figtree,
-                              fontWeight: FontWeight.w400,
-                              color: Color(0xFF64748B),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-
-                    const Icon(
-                      Icons.chevron_right,
-                      color: Color(0xFFCBD5E1),
-                      size: 20,
-                    ),
-                  ],
-                ),
-              ),
-              Container(
-                margin: const EdgeInsets.only(left: 16, right: 16, bottom: 12),
-                padding: const EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border.all(color: const Color(0xffF1F5F9), width: 1),
-                  boxShadow: const [
-                    BoxShadow(
-                      color: Color(0x0D000000),
-                      offset: Offset(0, 1),
-                      blurRadius: 2,
-                      spreadRadius: 0,
-                    ),
-                  ],
-                ),
-                child: Row(
-                  children: [
-                    Container(
-                      width: 42,
-                      height: 42,
-                      decoration: BoxDecoration(
-                        color: const Color(0xffF8FAFC),
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: Center(
-                        child: SvgPicture.asset(
-                          "assets/svg/privacy_policy.svg",
-                          width: 18,
-                          height: 18,
-                          colorFilter: ColorFilter.mode(
-                            Color(0xFF64748B),
-                            BlendMode.srcIn,
-                          ),
-                        ),
-                      ),
-                    ),
-
-                    SizedBox(width: 16),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "Privacy Policy & Terms",
-                            style: TextStyle(
-                              fontSize: 14,
-                              fontFamily: figtree,
-                              fontWeight: FontWeight.w600,
-                              color: Color(0xFF0F172A),
-                            ),
-                          ),
-                          SizedBox(height: 4),
-                          Text(
-                            "Legal information",
-                            style: TextStyle(
-                              fontSize: 14,
-                              fontFamily: figtree,
-                              fontWeight: FontWeight.w400,
-                              color: Color(0xFF64748B),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-
-                    const Icon(
-                      Icons.chevron_right,
-                      color: Color(0xFFCBD5E1),
-                      size: 20,
-                    ),
-                  ],
-                ),
-              ),
-
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 16.0,
-                  vertical: 24,
-                ),
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(16, 12, 16, 32),
                 child: SizedBox(
                   width: double.infinity,
                   height: 52,
@@ -611,9 +418,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     style: OutlinedButton.styleFrom(
                       backgroundColor: const Color(0xFFFFF5F5),
                       side: const BorderSide(
-                        color: Color(0xFFFFCDD2),
-                        width: 1.5,
-                      ),
+                          color: Color(0xFFFFCDD2), width: 1.5),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(14),
                       ),
@@ -621,8 +426,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                 ),
               ),
-            ],
-          ),
+            ),
+
+          ],
         ),
       ),
     );

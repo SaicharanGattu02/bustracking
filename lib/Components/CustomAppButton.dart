@@ -124,50 +124,60 @@ class CustomOutlinedButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final double buttonWidth = width ?? MediaQuery.of(context).size.width;
-    final double buttonHeight = height ?? 48;
-    final int borderRadius = radius ?? 12;
-    final Color finalTextColor = textColor ?? Color(0xFF000000);
+    final double buttonHeight = height ?? 56;
+    final int borderRadius = radius ?? 16;
 
-    return OutlinedButton(
-      onPressed: isLoading ? null : onTap,
-      style: OutlinedButton.styleFrom(
-        visualDensity: VisualDensity.compact,
-        padding: EdgeInsets.zero,
-        backgroundColor: bgColor ?? Colors.white,
-        side: BorderSide(color: borderColor ?? Color(0xFF9D8282), width: 1),
-        fixedSize: Size(buttonWidth, buttonHeight),
-        shape: RoundedRectangleBorder(
+    final Color finalTextColor = textColor ?? const Color(0xFF1A1A2E);
+
+    return SizedBox(
+      width: buttonWidth,
+      height: buttonHeight,
+      child: Container(
+        decoration: BoxDecoration(
+          color: bgColor ?? Colors.white,
           borderRadius: BorderRadius.circular(borderRadius.toDouble()),
+          border: Border.all(
+            color: borderColor ?? const Color(0xFFE5E7EB),
+            width: 1.5,
+          ),
         ),
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          if (isLoading)
-            SizedBox(
-              height: 24,
-              width: 24,
-              child: CircularProgressIndicator(
-                color: Color(0xFF6D6BFF),
-                strokeWidth: 1.5,
-              ),
-            )
-          else
-            Text(
-              text,
-              style: TextStyle(
-                fontSize: 12,
-                fontFamily: 'Roboto',
-                fontWeight: FontWeight.w600,
-                color: finalTextColor,
+        child: Material(
+          color: Colors.transparent,
+          borderRadius: BorderRadius.circular(borderRadius.toDouble()),
+          child: InkWell(
+            onTap: isLoading ? null : onTap,
+            borderRadius: BorderRadius.circular(borderRadius.toDouble()),
+            child: Center(
+              child: isLoading
+                  ? const SizedBox(
+                height: 22,
+                width: 22,
+                child: CircularProgressIndicator(
+                  strokeWidth: 2,
+                  color: Color(0xFF1A1A2E),
+                ),
+              )
+                  : Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    text,
+                    style: TextStyle(
+                      fontFamily: figtree,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w700,
+                      color: finalTextColor,
+                    ),
+                  ),
+                  if (icon != null) ...[
+                    const SizedBox(width: 8),
+                    Icon(icon, size: 20, color: finalTextColor),
+                  ],
+                ],
               ),
             ),
-          if (!isLoading && icon != null) ...[
-            SizedBox(width: 8),
-            Icon(icon, color: finalTextColor, size: 18),
-          ],
-        ],
+          ),
+        ),
       ),
     );
   }

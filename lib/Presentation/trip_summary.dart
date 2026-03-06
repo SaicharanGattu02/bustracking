@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 
+import '../Components/CustomAppButton.dart';
+
 class TripSummary extends StatefulWidget {
   final String tripId;
   const TripSummary({super.key, required this.tripId});
@@ -461,46 +463,17 @@ class _TripSummaryState extends State<TripSummary> {
               ),
 
               const SizedBox(height: 28),
-
-              /// CONFIRM BUTTON
-              Container(
-                width: double.infinity,
-                height: 56,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(16),
-                  border: Border.all(
-                    color: const Color(0xFFE5E7EB),
-                    width: 1.5,
-                  ),
-                ),
-                child: InkWell(
-                  borderRadius: BorderRadius.circular(16),
-                  onTap: () {},
-                  child: const Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        'Confirm & Finish',
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w700,
-                          color: Color(0xFF1A1A2E),
-                        ),
-                      ),
-                      SizedBox(width: 8),
-                      Icon(
-                        Icons.arrow_forward,
-                        size: 20,
-                        color: Color(0xFF1A1A2E),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-
-              const SizedBox(height: 24),
             ],
+          ),
+        ),
+      ),
+      bottomNavigationBar: SafeArea(
+        child: Padding(
+          padding: EdgeInsetsGeometry.fromLTRB(16, 10, 16, 20),
+          child: CustomOutlinedButton(
+            text: "Confirm & Finish",
+            icon: Icons.arrow_forward,
+            onTap: () {},
           ),
         ),
       ),
