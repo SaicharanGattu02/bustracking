@@ -1,3 +1,4 @@
+import 'package:bustracking/Presentation/Splash.dart';
 import 'package:bustracking/Presentation/profile.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +17,7 @@ final GoRouter appRouter = GoRouter(
     GoRoute(
       path: '/',
       pageBuilder: (context, state) {
-        return buildSlideTransitionPage(ProfileScreen(), state);
+        return buildSlideTransitionPage(Splash(), state);
       },
     ),
     GoRoute(

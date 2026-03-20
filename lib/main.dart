@@ -15,13 +15,14 @@ Future<void> main() async {
   final themeCubit = ThemeCubit(storage);
   await themeCubit.hydrate();
   runApp(
-    MultiRepositoryProvider(
-      providers: StateInjector.repositoryProviders,
-      child: MultiBlocProvider(
+    // MultiRepositoryProvider(
+    //   providers: StateInjector.repositoryProviders,
+    //   child:
+      MultiBlocProvider(
         providers: StateInjector.blocProviders(themeCubit),
         child: MyApp(),
       ),
-    ),
+    // ),
   );
 }
 
