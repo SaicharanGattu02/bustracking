@@ -1,11 +1,14 @@
 import 'dart:async';
 import 'package:bustracking/services/SecureStorageService.dart';
 import 'package:bustracking/state_injector.dart';
+import 'package:bustracking/utils/media_query_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'app_routes/router.dart';
+import 'core/theme/AppTheme.dart';
+import 'core/theme/theme_cubit.dart';
 
 Future<void> main() async {
   final storage = SecureStorageService.instance;
@@ -31,83 +34,26 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      _handleQuickAction();
-    });
-  }
-
-  Future<void> _handleQuickAction() async {
-    final action = QuickActionService.pendingAction;
-
-    if (action == null) return;
-
-    final token = await AuthService.getAccessToken();
-
-    if (token == null || token.isEmpty) {
-      appRouter.go('/dashboard');
-      QuickActionService.pendingAction = null;
-      return;
-    }
-
-    switch (action) {
-      case 'sell':
-        _navigate('/seller_categories');
-        break;
-
-      case 'buy':
-        _navigate('/dashboard');
-        break;
-
-      case 'chat':
-        _navigate('/chat');
-        break;
-    }
-
-    QuickActionService.pendingAction = null;
-  }
-
-  void _navigate(String route) {
-    appRouter.go('/dashboard');
-
-    Future.delayed(const Duration(milliseconds: 100), () {
-      if (route != '/dashboard') {
-        appRouter.push(route);
-      }
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
     SizeConfig.init(context);
-    return ValueListenableBuilder<bool>(
-      valueListenable: serverDownNotifier,
-      builder: (context, isServerDown, _) {
-        if (isServerDown) {
-          return const ServerDownScreen();
-        }
-        return BlocBuilder<ThemeCubit, AppThemeMode>(
+    return  BlocBuilder<ThemeCubit, AppThemeMode>(
           builder: (context, appThemeMode) {
             final themeMode = switch (appThemeMode) {
               AppThemeMode.light => ThemeMode.light,
               AppThemeMode.dark => ThemeMode.dark,
               _ => ThemeMode.system,
             };
-            return StateInjector.withAuthBlocs(
-              child: MaterialApp.router(
-                scaffoldMessengerKey: scaffoldMessengerKey,
-                title: 'Sympl',
+            return  MaterialApp.router(
+                title: 'NAVIGSTER',
                 theme: AppTheme.getLightTheme(),
                 darkTheme: AppTheme.getDarkTheme(),
                 themeMode: themeMode,
                 debugShowCheckedModeBanner: false,
                 routerConfig: appRouter,
-              ),
-            );
+              );
+
           },
         );
-      },
-    );
+
   }
 }

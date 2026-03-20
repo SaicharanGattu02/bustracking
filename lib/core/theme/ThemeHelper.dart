@@ -1,7 +1,7 @@
+import 'package:bustracking/core/theme/theme_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../data/cubit/theme_cubit.dart';
 import 'app_colors.dart';
 
 class ThemeHelper {
