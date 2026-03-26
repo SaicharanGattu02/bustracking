@@ -1,3 +1,4 @@
+import 'package:bustracking/Components/CustomAppButton.dart';
 import 'package:bustracking/utils/constants.dart';
 import 'package:flutter/material.dart';
 import '../../core/theme/ThemeHelper.dart';
@@ -7,8 +8,7 @@ class NotificationPermission extends StatefulWidget {
   const NotificationPermission({super.key});
 
   @override
-  State<NotificationPermission> createState() =>
-      _NotificationPermissionState();
+  State<NotificationPermission> createState() => _NotificationPermissionState();
 }
 
 class _NotificationPermissionState extends State<NotificationPermission> {
@@ -33,7 +33,7 @@ class _NotificationPermissionState extends State<NotificationPermission> {
               children: [
                 Text(
                   title,
-                  style:  TextStyle(
+                  style: TextStyle(
                     fontFamily: figtree,
                     fontWeight: FontWeight.w600,
                     fontSize: 14,
@@ -43,7 +43,7 @@ class _NotificationPermissionState extends State<NotificationPermission> {
                 const SizedBox(height: 2),
                 Text(
                   subtitle,
-                  style:  TextStyle(
+                  style: TextStyle(
                     fontFamily: figtree,
                     fontSize: 12,
                     color: Color(0xff6B7280),
@@ -66,8 +66,6 @@ class _NotificationPermissionState extends State<NotificationPermission> {
       body: SafeArea(
         child: Column(
           children: [
-
-            /// TOP IMAGE
             Image.asset(
               "assets/bg/notification_bg.png",
               width: double.infinity,
@@ -81,7 +79,6 @@ class _NotificationPermissionState extends State<NotificationPermission> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-
                     /// TITLE
                     Text(
                       "Stay Updated About Your\nChild’s Bus",
@@ -144,55 +141,37 @@ class _NotificationPermissionState extends State<NotificationPermission> {
                         ],
                       ),
                     ),
-
-                    const Spacer(),
-
-                    /// ENABLE BUTTON
-                    SizedBox(
-                      width: double.infinity,
-                      height: 54,
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xffEF1111),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(14),
-                          ),
-                        ),
-                        onPressed: () {},
-                        child: Text(
-                          "Enable Notifications",
-                          style: TextStyle(
-                            fontFamily: figtree,
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
-                    ),
-
-                    const SizedBox(height: 14),
-
-                    /// MAYBE LATER
-                    Center(
-                      child: Text(
-                        "Maybe Later",
-                        style: TextStyle(
-                          fontFamily: figtree,
-                          fontSize: 14,
-                          color: isDark
-                              ? Colors.white70
-                              : const Color(0xff9CA3AF),
-                        ),
-                      ),
-                    ),
-
-                    SizedBox(height: SizeConfig.screenHeight * 0.02),
                   ],
                 ),
               ),
             ),
           ],
+        ),
+      ),
+      bottomNavigationBar: SafeArea(
+        child: Padding(
+          padding: EdgeInsetsGeometry.fromLTRB(16, 10, 16, 20),
+          child: Column(
+            spacing: 10,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              CustomAppButton(text: "Enable Notifications", onPlusTap: () {}),
+              Center(
+                child: TextButton(
+                  onPressed: () {},
+                  child: Text(
+                    "Maybe Later",
+                    style: TextStyle(
+                      color: isDark ? Colors.white : Color(0xff94A3B8),
+                      fontWeight: FontWeight.w500,
+                      fontSize: 14,
+                      fontFamily: figtree,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

@@ -1,9 +1,12 @@
+import 'package:bustracking/Presentation/Authentication/otp.dart';
 import 'package:bustracking/Presentation/Splash.dart';
+import 'package:bustracking/Presentation/on_boarding.dart';
 import 'package:bustracking/Presentation/profile.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import '../Presentation/Authentication/login.dart';
 import '../Presentation/missed_stop_confirmation.dart';
 import '../Presentation/report_an_issue.dart';
 import '../Presentation/report_received.dart';
@@ -49,6 +52,25 @@ final GoRouter appRouter = GoRouter(
       path: '/report_an_issue',
       pageBuilder: (context, state) {
         return buildSlideTransitionPage(ReportAnIssueScreen(), state);
+      },
+    ),
+    GoRoute(
+      path: '/onboarding',
+      pageBuilder: (context, state) {
+        return buildSlideTransitionPage(OnBoarding(), state);
+      },
+    ),
+    GoRoute(
+      path: '/login',
+      pageBuilder: (context, state) {
+        return buildSlideTransitionPage(Login(), state);
+      },
+    ),
+    GoRoute(
+      path: '/otp',
+      pageBuilder: (context, state) {
+        final mobile=state.uri.queryParameters['phoneNumber']??"";
+        return buildSlideTransitionPage(Otp(phoneNumber: mobile), state);
       },
     ),
 

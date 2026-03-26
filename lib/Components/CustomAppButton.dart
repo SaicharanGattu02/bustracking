@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 
 import '../utils/constants.dart';
 
+import 'package:flutter/material.dart';
+
 class CustomAppButton extends StatelessWidget {
   final String text;
   final Color? textcolor;
@@ -34,20 +36,33 @@ class CustomAppButton extends StatelessWidget {
     this.gradientColors,
     this.shadowColor,
   }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     final double buttonWidth = width ?? MediaQuery.of(context).size.width;
     final double buttonHeight = height ?? 56;
     final int borderRadius = radius ?? 16;
-    final Color textColor = textcolor ?? Colors.white;
+
+    final theme = Theme.of(context);
+
+    final Color textColor = textcolor ?? theme.colorScheme.onPrimary;
 
     return SizedBox(
       width: buttonWidth,
       height: buttonHeight,
       child: Container(
         decoration: BoxDecoration(
-          color: const Color(0xFFEF1111), // red background
+           color: onPlusTap == null ? Color(0xffF8FAFC) : primaryColor,
           borderRadius: BorderRadius.circular(borderRadius.toDouble()),
+          boxShadow: shadowColor != null
+              ? [
+                  BoxShadow(
+                    color: shadowColor!,
+                    blurRadius: 10,
+                    offset: const Offset(0, 4),
+                  ),
+                ]
+              : [],
         ),
         child: ElevatedButton(
           onPressed: isLoading ? null : onPlusTap,
@@ -62,11 +77,11 @@ class CustomAppButton extends StatelessWidget {
           ),
           child: Center(
             child: isLoading
-                ? const SizedBox(
+                ? SizedBox(
                     height: 22,
                     width: 22,
                     child: CircularProgressIndicator(
-                      color: Colors.white,
+                      color: textColor,
                       strokeWidth: 2,
                     ),
                   )
@@ -75,9 +90,8 @@ class CustomAppButton extends StatelessWidget {
                     children: [
                       Text(
                         text,
-                        style: TextStyle(
+                        style: theme.textTheme.labelLarge?.copyWith(
                           color: textColor,
-                          fontFamily: figtree,
                           fontSize: textSize ?? 16,
                           fontWeight: FontWeight.w600,
                         ),
@@ -123,21 +137,30 @@ class CustomOutlinedButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     final double buttonWidth = width ?? MediaQuery.of(context).size.width;
     final double buttonHeight = height ?? 56;
     final int borderRadius = radius ?? 16;
 
-    final Color finalTextColor = textColor ?? const Color(0xFF1A1A2E);
+    final Color finalTextColor =
+        textColor ?? theme.colorScheme.primary;
+
+    final Color finalBgColor =
+        bgColor ?? theme.colorScheme.surface;
+
+    final Color finalBorderColor =
+        borderColor ?? theme.dividerColor;
 
     return SizedBox(
       width: buttonWidth,
       height: buttonHeight,
       child: Container(
         decoration: BoxDecoration(
-          color: bgColor ?? Colors.white,
+          color: finalBgColor,
           borderRadius: BorderRadius.circular(borderRadius.toDouble()),
           border: Border.all(
-            color: borderColor ?? const Color(0xFFE5E7EB),
+            color: finalBorderColor,
             width: 1.5,
           ),
         ),
@@ -149,12 +172,12 @@ class CustomOutlinedButton extends StatelessWidget {
             borderRadius: BorderRadius.circular(borderRadius.toDouble()),
             child: Center(
               child: isLoading
-                  ? const SizedBox(
+                  ? SizedBox(
                 height: 22,
                 width: 22,
                 child: CircularProgressIndicator(
                   strokeWidth: 2,
-                  color: Color(0xFF1A1A2E),
+                  color: finalTextColor,
                 ),
               )
                   : Row(
@@ -162,8 +185,7 @@ class CustomOutlinedButton extends StatelessWidget {
                 children: [
                   Text(
                     text,
-                    style: TextStyle(
-                      fontFamily: figtree,
+                    style: theme.textTheme.labelLarge?.copyWith(
                       fontSize: 16,
                       fontWeight: FontWeight.w700,
                       color: finalTextColor,

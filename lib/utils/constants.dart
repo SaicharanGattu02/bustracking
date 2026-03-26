@@ -103,3 +103,5 @@ String to24Format(String time12h) {
 }
 
 final String figtree = "Figtree";
+final String interBold = "InterBold";
+final String inter = "InterNormal";

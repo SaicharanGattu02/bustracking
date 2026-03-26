@@ -29,7 +29,7 @@ class Nointernet extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w500,
-                      color: primarycolor,
+                      color: primaryColor,
                       fontFamily: "Roboto",
                     ),
                     children: [
