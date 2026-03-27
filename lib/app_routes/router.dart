@@ -7,9 +7,11 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../Presentation/Authentication/login.dart';
+import '../Presentation/InstutionActivation/activate_transport_access.dart';
 import '../Presentation/missed_stop_confirmation.dart';
 import '../Presentation/report_an_issue.dart';
 import '../Presentation/report_received.dart';
+import '../Presentation/select_boarding_point.dart';
 import '../Presentation/trip_history.dart';
 import '../Presentation/trip_summary.dart';
 
@@ -20,7 +22,7 @@ final GoRouter appRouter = GoRouter(
     GoRoute(
       path: '/',
       pageBuilder: (context, state) {
-        return buildSlideTransitionPage(Splash(), state);
+        return buildSlideTransitionPage(ActivateTransportAccess(phoneNumber: "7674952516",), state);
       },
     ),
     GoRoute(
@@ -66,11 +68,27 @@ final GoRouter appRouter = GoRouter(
         return buildSlideTransitionPage(Login(), state);
       },
     ),
+
     GoRoute(
       path: '/otp',
       pageBuilder: (context, state) {
         final mobile=state.uri.queryParameters['phoneNumber']??"";
         return buildSlideTransitionPage(Otp(phoneNumber: mobile), state);
+      },
+    ),
+
+    GoRoute(
+      path: '/activate_transport_access',
+      pageBuilder: (context, state) {
+        final mobile=state.uri.queryParameters['phoneNumber']??"";
+        return buildSlideTransitionPage(ActivateTransportAccess(phoneNumber: mobile), state);
+      },
+    ),
+
+    GoRoute(
+      path: '/select_boarding_point',
+      pageBuilder: (context, state) {
+        return buildSlideTransitionPage(SelectBoardingPoint(), state);
       },
     ),
 
